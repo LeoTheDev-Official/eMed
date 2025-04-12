@@ -1,8 +1,12 @@
+'use client'
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import {useState} from "react"
 
 export default function Header() {
 
+  const [loggedIn, setStateLoggedIn] = useState(false);
   return (
     <header className="border-b border-[#e0e4ea] bg-white sticky top-0 z-10">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -33,8 +37,8 @@ export default function Header() {
           </Link>
         </nav>
         <div className="flex items-center space-x-3">
-          <Link href="/auth/mpass">
-            <Button className="bg-[#1373e6] hover:bg-[#0058d2]">Login with MPass</Button>
+          <Link href={loggedIn?"/dashboard":"/auth/mpass"}>
+            {loggedIn?<Button className="bg-[#1373e6] hover:bg-[#0058d2]">Control Panel</Button>:<Button className="bg-[#1373e6] hover:bg-[#0058d2]" onClick={()=>setStateLoggedIn(true)}>Login with MPass</Button>}
           </Link>
         </div>
       </div>

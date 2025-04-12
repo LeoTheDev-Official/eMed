@@ -489,7 +489,7 @@ export default function NewAppointmentPage() {
           </CardContent>
         </Card>
 
-        <Dialog open={showChatDialog} onOpenChange={setShowChatDialog}>
+        {/* <Dialog open={showChatDialog} onOpenChange={setShowChatDialog}>
           <DialogContent className="">
             <DialogHeader>
               <DialogTitle className="text-[#151b26]">Chat with Receptionist</DialogTitle>
@@ -555,7 +555,7 @@ export default function NewAppointmentPage() {
               </Button>
             </DialogFooter>
           </DialogContent>
-        </Dialog>
+        </Dialog> */}
       </div>
     </div>
   )
