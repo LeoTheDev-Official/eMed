@@ -1,6 +1,22 @@
+"use client"
+
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 export default function Footer() {
+  const pathname = usePathname()
+  const isLoggedIn = pathname.includes("/dashboard")
+
+  if (isLoggedIn) {
+    return (
+      <footer className="bg-white border-t border-[#e0e4ea] py-4">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-sm text-[#6e7781]">© {new Date().getFullYear()} eMed. Toate drepturile rezervate.</p>
+        </div>
+      </footer>
+    )
+  }
+
   return (
     <footer className="bg-[#f6fafe] border-t border-[#e0e4ea]">
       <div className="container mx-auto px-4 py-8">
@@ -16,7 +32,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/dashboard" className="text-[#6e7781] hover:text-[#1373e6]">
-                  Panou de Control
+                  Cabinet Personal
                 </Link>
               </li>
               <li>
@@ -25,8 +41,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/medical-records" className="text-[#6e7781] hover:text-[#1373e6]">
-                  Fișe Medicale
+                <Link href="/dashboard/profile" className="text-[#6e7781] hover:text-[#1373e6]">
+                  Profil Medical
                 </Link>
               </li>
             </ul>
@@ -73,7 +89,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-[#e0e4ea] mt-8 pt-6 text-center text-sm text-[#6e7781]">
-          <p>© {new Date().getFullYear()} MedConnect. Toate drepturile rezervate.</p>
+          <p>© {new Date().getFullYear()} eMed. Toate drepturile rezervate.</p>
         </div>
       </div>
     </footer>

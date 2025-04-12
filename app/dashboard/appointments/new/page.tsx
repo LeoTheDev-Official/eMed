@@ -8,14 +8,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
 import { Calendar } from "@/components/ui/calendar"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -30,18 +22,19 @@ export default function NewAppointmentPage() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
   const [showChatDialog, setShowChatDialog] = useState(false)
+  const [directDoctorSelect, setDirectDoctorSelect] = useState(false)
 
   const handleBodyPartSelect = (part: string) => {
     setSelectedBodyPart(part)
     // Based on body part, suggest a specialty
     const specialtyMap: Record<string, string> = {
-      head: "Neurology",
-      chest: "Cardiology",
-      abdomen: "Gastroenterology",
-      arm: "Orthopedics",
-      leg: "Orthopedics",
-      back: "Orthopedics",
-      skin: "Dermatology",
+      head: "Neurologie",
+      chest: "Cardiologie",
+      abdomen: "Gastroenterologie",
+      arm: "Ortopedie",
+      leg: "Ortopedie",
+      back: "Ortopedie",
+      skin: "Dermatologie",
     }
     setSelectedSpecialty(specialtyMap[part] || null)
     setStep(2)
@@ -50,8 +43,6 @@ export default function NewAppointmentPage() {
   const handleSpecialtySelect = (specialty: string) => {
     setSelectedSpecialty(specialty)
     setStep(3)
-    // In a real app, this would trigger the chat with receptionist
-    setShowChatDialog(true)
   }
 
   const handleDoctorSelect = (doctor: string) => {
@@ -76,9 +67,9 @@ export default function NewAppointmentPage() {
         <div className="flex items-center mb-6">
           <Button variant="ghost" size="sm" className="text-[#6e7781]" onClick={() => router.back()}>
             <ChevronLeft className="h-4 w-4 mr-1" />
-            Back
+            Înapoi
           </Button>
-          <h1 className="text-2xl font-bold text-[#151b26] ml-2">Schedule New Appointment</h1>
+          <h1 className="text-2xl font-bold text-[#151b26] ml-2">Programare Nouă</h1>
         </div>
 
         <div className="mb-8">
@@ -100,29 +91,29 @@ export default function NewAppointmentPage() {
             ))}
           </div>
           <div className="flex items-center justify-between mt-2 text-sm text-[#6e7781]">
-            <span>Select Area</span>
-            <span>Specialty</span>
+            <span>Selectare Zonă</span>
+            <span>Specialitate</span>
             <span>Doctor</span>
-            <span>Date & Time</span>
-            <span>Confirm</span>
+            <span>Data & Ora</span>
+            <span>Confirmare</span>
           </div>
         </div>
 
         <Card className="shadow-sm">
           <CardHeader>
             <CardTitle className="text-[#151b26]">
-              {step === 1 && "Select Body Area"}
-              {step === 2 && "Select Specialty"}
-              {step === 3 && "Select Doctor"}
-              {step === 4 && "Select Date & Time"}
-              {step === 5 && "Confirm Appointment"}
+              {step === 1 && "Selectați Zona Corpului"}
+              {step === 2 && "Selectați Specialitatea"}
+              {step === 3 && "Selectați Doctorul"}
+              {step === 4 && "Selectați Data și Ora"}
+              {step === 5 && "Confirmați Programarea"}
             </CardTitle>
             <CardDescription className="text-[#6e7781]">
-              {step === 1 && "Click on the area where you're experiencing issues"}
-              {step === 2 && "Choose a medical specialty for your appointment"}
-              {step === 3 && "Select a doctor from the available options"}
-              {step === 4 && "Choose a convenient date and time"}
-              {step === 5 && "Review and confirm your appointment details"}
+              {step === 1 && "Faceți click pe zona unde aveți probleme sau selectați direct un doctor"}
+              {step === 2 && "Alegeți o specialitate medicală pentru programarea dumneavoastră"}
+              {step === 3 && "Selectați un doctor din opțiunile disponibile"}
+              {step === 4 && "Alegeți o dată și oră convenabilă"}
+              {step === 5 && "Verificați și confirmați detaliile programării"}
             </CardDescription>
           </CardHeader>
 
@@ -131,51 +122,105 @@ export default function NewAppointmentPage() {
               <div className="space-y-6">
                 <Tabs defaultValue="body-map" className="w-full">
                   <TabsList className="grid grid-cols-2 mb-4">
-                    <TabsTrigger value="body-map">Body Map</TabsTrigger>
-                    <TabsTrigger value="specialty">Direct Specialty</TabsTrigger>
+                    <TabsTrigger value="body-map">Hartă Corp</TabsTrigger>
+                    <TabsTrigger value="direct-doctor" onClick={() => setDirectDoctorSelect(true)}>
+                      Selectare Doctor
+                    </TabsTrigger>
                   </TabsList>
 
-                  <TabsContent value="body-map" className="space-y-4 ">
+                  <TabsContent value="body-map" className="space-y-4">
                     <div className="relative w-full max-w-md mx-auto">
-                      <svg viewBox="0 0 200 400" className="w-full h-auto">
-                        {/* Simple human body outline */}
+                      <svg viewBox="0 0 300 500" className="w-full h-auto">
+                        {/* Cap */}
                         <circle
-                          cx="100"
-                          cy="50"
-                          r="40"
+                          cx="150"
+                          cy="60"
+                          r="50"
                           fill="none"
                           stroke="#151b26"
                           strokeWidth="2"
                           className="cursor-pointer hover:fill-[#e1edfb]"
                           onClick={() => handleBodyPartSelect("head")}
                         />
+
+                        {/* Gât */}
                         <rect
-                          x="60"
-                          y="90"
-                          width="80"
-                          height="100"
+                          x="135"
+                          y="110"
+                          width="30"
+                          height="20"
+                          fill="none"
+                          stroke="#151b26"
+                          strokeWidth="2"
+                          className="cursor-pointer hover:fill-[#e1edfb]"
+                        />
+
+                        {/* Piept */}
+                        <rect
+                          x="100"
+                          y="130"
+                          width="100"
+                          height="80"
                           fill="none"
                           stroke="#151b26"
                           strokeWidth="2"
                           className="cursor-pointer hover:fill-[#e1edfb]"
                           onClick={() => handleBodyPartSelect("chest")}
                         />
+
+                        {/* Abdomen */}
                         <rect
-                          x="60"
-                          y="190"
-                          width="80"
-                          height="60"
+                          x="100"
+                          y="210"
+                          width="100"
+                          height="70"
                           fill="none"
                           stroke="#151b26"
                           strokeWidth="2"
                           className="cursor-pointer hover:fill-[#e1edfb]"
                           onClick={() => handleBodyPartSelect("abdomen")}
                         />
+
+                        {/* Pelvis */}
                         <rect
-                          x="40"
-                          y="90"
+                          x="100"
+                          y="280"
+                          width="100"
+                          height="40"
+                          fill="none"
+                          stroke="#151b26"
+                          strokeWidth="2"
+                          className="cursor-pointer hover:fill-[#e1edfb]"
+                        />
+
+                        {/* Brațe */}
+                        <rect
+                          x="50"
+                          y="130"
+                          width="50"
+                          height="20"
+                          fill="none"
+                          stroke="#151b26"
+                          strokeWidth="2"
+                          className="cursor-pointer hover:fill-[#e1edfb]"
+                        />
+                        <rect
+                          x="200"
+                          y="130"
+                          width="50"
+                          height="20"
+                          fill="none"
+                          stroke="#151b26"
+                          strokeWidth="2"
+                          className="cursor-pointer hover:fill-[#e1edfb]"
+                        />
+
+                        {/* Antebrațe */}
+                        <rect
+                          x="30"
+                          y="150"
                           width="20"
-                          height="120"
+                          height="80"
                           fill="none"
                           stroke="#151b26"
                           strokeWidth="2"
@@ -183,21 +228,43 @@ export default function NewAppointmentPage() {
                           onClick={() => handleBodyPartSelect("arm")}
                         />
                         <rect
-                          x="140"
-                          y="90"
+                          x="250"
+                          y="150"
                           width="20"
-                          height="120"
+                          height="80"
                           fill="none"
                           stroke="#151b26"
                           strokeWidth="2"
                           className="cursor-pointer hover:fill-[#e1edfb]"
                           onClick={() => handleBodyPartSelect("arm")}
                         />
+
+                        {/* Mâini */}
+                        <circle
+                          cx="40"
+                          cy="250"
+                          r="15"
+                          fill="none"
+                          stroke="#151b26"
+                          strokeWidth="2"
+                          className="cursor-pointer hover:fill-[#e1edfb]"
+                        />
+                        <circle
+                          cx="260"
+                          cy="250"
+                          r="15"
+                          fill="none"
+                          stroke="#151b26"
+                          strokeWidth="2"
+                          className="cursor-pointer hover:fill-[#e1edfb]"
+                        />
+
+                        {/* Picioare */}
                         <rect
-                          x="60"
-                          y="250"
-                          width="30"
-                          height="120"
+                          x="100"
+                          y="320"
+                          width="40"
+                          height="150"
                           fill="none"
                           stroke="#151b26"
                           strokeWidth="2"
@@ -205,52 +272,144 @@ export default function NewAppointmentPage() {
                           onClick={() => handleBodyPartSelect("leg")}
                         />
                         <rect
-                          x="110"
-                          y="250"
-                          width="30"
-                          height="120"
+                          x="160"
+                          y="320"
+                          width="40"
+                          height="150"
                           fill="none"
                           stroke="#151b26"
                           strokeWidth="2"
                           className="cursor-pointer hover:fill-[#e1edfb]"
                           onClick={() => handleBodyPartSelect("leg")}
+                        />
+
+                        {/* Picioare */}
+                        <ellipse
+                          cx="120"
+                          cy="480"
+                          rx="25"
+                          ry="15"
+                          fill="none"
+                          stroke="#151b26"
+                          strokeWidth="2"
+                          className="cursor-pointer hover:fill-[#e1edfb]"
+                        />
+                        <ellipse
+                          cx="180"
+                          cy="480"
+                          rx="25"
+                          ry="15"
+                          fill="none"
+                          stroke="#151b26"
+                          strokeWidth="2"
+                          className="cursor-pointer hover:fill-[#e1edfb]"
                         />
                       </svg>
 
                       {selectedBodyPart && (
                         <div className="mt-4 p-4 bg-[#f6fafe] border border-[#bddbfd] rounded-md">
                           <p className="font-medium text-[#151b26]">
-                            Selected area: <span className="text-[#1373e6]">{selectedBodyPart}</span>
+                            Zonă selectată: <span className="text-[#1373e6]">{selectedBodyPart}</span>
                           </p>
                           <p className="text-sm text-[#6e7781]">
-                            Recommended specialty: <span className="font-medium">{selectedSpecialty}</span>
+                            Specialitate recomandată: <span className="font-medium">{selectedSpecialty}</span>
                           </p>
                         </div>
                       )}
                     </div>
                   </TabsContent>
 
-                  <TabsContent value="specialty" className="space-y-4">
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  <TabsContent value="direct-doctor" className="space-y-4">
+                    <div className="p-4 bg-[#f6fafe] border border-[#bddbfd] rounded-md mb-4">
+                      <p className="font-medium text-[#151b26]">
+                        Medicul dumneavoastră de familie: <span className="text-[#1373e6]">Dr. Ana Munteanu</span>
+                      </p>
+                      <p className="text-sm text-[#6e7781]">
+                        Centrul Medical: <span className="font-medium">Centrul Medical "MedPlus"</span>
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-4">
+                      <div
+                        className="flex items-center justify-between p-4 border border-[#e0e4ea] rounded-md hover:bg-[#f6fafe] cursor-pointer"
+                        onClick={() => {
+                          setSelectedDoctor("Dr. Ana Munteanu")
+                          setSelectedSpecialty("Medicină de Familie")
+                          setStep(4)
+                        }}
+                      >
+                        <div className="flex items-center space-x-4">
+                          <Avatar className="h-12 w-12 border border-[#e0e4ea]">
+                            <AvatarImage src="/placeholder.svg?height=48&width=48" alt="Dr. Ana Munteanu" />
+                            <AvatarFallback className="bg-[#1373e6] text-white">AM</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <p className="font-medium text-[#151b26]">Dr. Ana Munteanu</p>
+                            <p className="text-sm text-[#6e7781]">Medicină de Familie • Centrul Medical "MedPlus"</p>
+                          </div>
+                        </div>
+                        <Badge variant="outline" className="bg-[#f6fafe] text-[#1373e6] border-[#bddbfd]">
+                          Medicul Dumneavoastră
+                        </Badge>
+                      </div>
+
+                      <div className="mt-4 mb-2">
+                        <h3 className="font-medium text-[#151b26]">Alți Doctori Disponibili</h3>
+                      </div>
+
                       {[
-                        "Cardiology",
-                        "Dermatology",
-                        "Gastroenterology",
-                        "Neurology",
-                        "Orthopedics",
-                        "Pediatrics",
-                        "Psychiatry",
-                        "Ophthalmology",
-                        "General Practice",
-                      ].map((specialty) => (
-                        <Button
-                          key={specialty}
-                          variant="outline"
-                          className="h-24 flex flex-col items-center justify-center space-y-2 hover:bg-[#f6fafe] hover:border-[#bddbfd] border-[#e0e4ea] text-[#151b26]"
-                          onClick={() => handleSpecialtySelect(specialty)}
+                        {
+                          name: "Dr. Maria Ionescu",
+                          specialty: "Cardiologie",
+                          location: "Spitalul Municipal",
+                          distance: "1.2 km",
+                          available: "Astăzi",
+                        },
+                        {
+                          name: "Dr. Mihai Popa",
+                          specialty: "Medicină Generală",
+                          location: "Centrul Medical",
+                          distance: "3.5 km",
+                          available: "Mâine",
+                        },
+                        {
+                          name: "Dr. Elena Radu",
+                          specialty: "Dermatologie",
+                          location: "Clinica de Sănătate",
+                          distance: "5.0 km",
+                          available: "15 Apr",
+                        },
+                      ].map((doctor) => (
+                        <div
+                          key={doctor.name}
+                          className="flex items-center justify-between p-4 border border-[#e0e4ea] rounded-md hover:bg-[#f6fafe] cursor-pointer"
+                          onClick={() => {
+                            setSelectedDoctor(doctor.name)
+                            setSelectedSpecialty(doctor.specialty)
+                            setStep(4)
+                          }}
                         >
-                          <span>{specialty}</span>
-                        </Button>
+                          <div className="flex items-center space-x-4">
+                            <Avatar className="h-12 w-12 border border-[#e0e4ea]">
+                              <AvatarImage src="/placeholder.svg?height=48&width=48" alt={doctor.name} />
+                              <AvatarFallback className="bg-[#1373e6] text-white">
+                                {doctor.name
+                                  .split(" ")
+                                  .map((n) => n[0])
+                                  .join("")}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <p className="font-medium text-[#151b26]">{doctor.name}</p>
+                              <p className="text-sm text-[#6e7781]">
+                                {doctor.specialty} • {doctor.location} • {doctor.distance}
+                              </p>
+                            </div>
+                          </div>
+                          <Badge variant="outline" className="bg-[#f6fafe] text-[#1373e6] border-[#bddbfd]">
+                            Disponibil {doctor.available}
+                          </Badge>
+                        </div>
                       ))}
                     </div>
                   </TabsContent>
@@ -262,24 +421,24 @@ export default function NewAppointmentPage() {
               <div className="space-y-6">
                 <div className="p-4 bg-[#f6fafe] border border-[#bddbfd] rounded-md mb-4">
                   <p className="font-medium text-[#151b26]">
-                    Selected area: <span className="text-[#1373e6]">{selectedBodyPart}</span>
+                    Zonă selectată: <span className="text-[#1373e6]">{selectedBodyPart}</span>
                   </p>
                 </div>
 
                 <div className="space-y-4">
-                  <Label className="text-[#151b26]">Select Specialty</Label>
+                  <Label className="text-[#151b26]">Selectați Specialitatea</Label>
                   <RadioGroup
                     defaultValue={selectedSpecialty || undefined}
                     className="grid grid-cols-1 md:grid-cols-2 gap-4"
                   >
                     {[
-                      "Cardiology",
-                      "Dermatology",
-                      "Gastroenterology",
-                      "Neurology",
-                      "Orthopedics",
-                      "Pediatrics",
-                      "General Practice",
+                      "Cardiologie",
+                      "Dermatologie",
+                      "Gastroenterologie",
+                      "Neurologie",
+                      "Ortopedie",
+                      "Pediatrie",
+                      "Medicină Generală",
                     ].map((specialty) => (
                       <div
                         key={specialty}
@@ -300,13 +459,13 @@ export default function NewAppointmentPage() {
 
                 <div className="flex justify-between">
                   <Button variant="outline" onClick={() => setStep(1)} className="border-[#e0e4ea] text-[#6e7781]">
-                    Back
+                    Înapoi
                   </Button>
                   <Button
-                    onClick={() => handleSpecialtySelect(selectedSpecialty || "General Practice")}
+                    onClick={() => handleSpecialtySelect(selectedSpecialty || "Medicină Generală")}
                     className="bg-[#1373e6] hover:bg-[#0058d2]"
                   >
-                    Continue
+                    Continuare
                   </Button>
                 </div>
               </div>
@@ -316,26 +475,45 @@ export default function NewAppointmentPage() {
               <div className="space-y-6">
                 <div className="p-4 bg-[#f6fafe] border border-[#bddbfd] rounded-md mb-4">
                   <p className="font-medium text-[#151b26]">
-                    Selected specialty: <span className="text-[#1373e6]">{selectedSpecialty}</span>
+                    Specialitate selectată: <span className="text-[#1373e6]">{selectedSpecialty}</span>
                   </p>
                 </div>
 
                 <div className="space-y-4">
-                  <Label className="text-[#151b26]">Select Doctor</Label>
+                  <Label className="text-[#151b26]">Selectați Doctorul</Label>
                   <div className="grid grid-cols-1 gap-4">
+                    <div
+                      className="flex items-center justify-between p-4 border-2 border-[#1373e6] rounded-md bg-[#f6fafe] cursor-pointer"
+                      onClick={() => handleDoctorSelect("Dr. Ana Munteanu")}
+                    >
+                      <div className="flex items-center space-x-4">
+                        <Avatar className="h-12 w-12 border border-[#e0e4ea]">
+                          <AvatarImage src="/placeholder.svg?height=48&width=48" alt="Dr. Ana Munteanu" />
+                          <AvatarFallback className="bg-[#1373e6] text-white">AM</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <p className="font-medium text-[#151b26]">Dr. Ana Munteanu</p>
+                          <p className="text-sm text-[#6e7781]">Centrul Medical "MedPlus" • 0.5 km</p>
+                        </div>
+                      </div>
+                      <Badge variant="outline" className="bg-[#f6fafe] text-[#1373e6] border-[#bddbfd]">
+                        Medicul Dumneavoastră
+                      </Badge>
+                    </div>
+
                     {[
-                      { name: "Dr. Sarah Johnson", location: "City Hospital", distance: "1.2 km", available: "Today" },
                       {
-                        name: "Dr. Michael Chen",
-                        location: "Medical Center",
-                        distance: "3.5 km",
-                        available: "Tomorrow",
+                        name: "Dr. Maria Ionescu",
+                        location: "Spitalul Municipal",
+                        distance: "1.2 km",
+                        available: "Astăzi",
                       },
+                      { name: "Dr. Mihai Popa", location: "Centrul Medical", distance: "3.5 km", available: "Mâine" },
                       {
-                        name: "Dr. Emily Rodriguez",
-                        location: "Health Clinic",
+                        name: "Dr. Elena Radu",
+                        location: "Clinica de Sănătate",
                         distance: "5.0 km",
-                        available: "Apr 15",
+                        available: "15 Apr",
                       },
                     ].map((doctor) => (
                       <div
@@ -361,7 +539,7 @@ export default function NewAppointmentPage() {
                           </div>
                         </div>
                         <Badge variant="outline" className="bg-[#f6fafe] text-[#1373e6] border-[#bddbfd]">
-                          Available {doctor.available}
+                          Disponibil {doctor.available}
                         </Badge>
                       </div>
                     ))}
@@ -370,7 +548,7 @@ export default function NewAppointmentPage() {
 
                 <div className="flex justify-between">
                   <Button variant="outline" onClick={() => setStep(2)} className="border-[#e0e4ea] text-[#6e7781]">
-                    Back
+                    Înapoi
                   </Button>
                 </div>
               </div>
@@ -380,14 +558,14 @@ export default function NewAppointmentPage() {
               <div className="space-y-6">
                 <div className="p-4 bg-[#f6fafe] border border-[#bddbfd] rounded-md mb-4">
                   <p className="font-medium text-[#151b26]">
-                    Selected doctor: <span className="text-[#1373e6]">{selectedDoctor}</span>
+                    Doctor selectat: <span className="text-[#1373e6]">{selectedDoctor}</span>
                   </p>
-                  <p className="text-sm text-[#6e7781]">Specialty: {selectedSpecialty}</p>
+                  <p className="text-sm text-[#6e7781]">Specialitate: {selectedSpecialty}</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label className="mb-2 block text-[#151b26]">Select Date</Label>
+                    <Label className="mb-2 block text-[#151b26]">Selectați Data</Label>
                     <Calendar
                       mode="single"
                       selected={selectedDate}
@@ -398,7 +576,7 @@ export default function NewAppointmentPage() {
                   </div>
 
                   <div>
-                    <Label className="mb-2 block text-[#151b26]">Select Time</Label>
+                    <Label className="mb-2 block text-[#151b26]">Selectați Ora</Label>
                     {selectedDate ? (
                       <div className="grid grid-cols-2 gap-2">
                         {["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "13:00", "13:30", "14:00", "14:30"].map(
@@ -416,7 +594,7 @@ export default function NewAppointmentPage() {
                       </div>
                     ) : (
                       <div className="p-4 border border-[#e0e4ea] rounded-md bg-[#f9f9f9] text-[#6e7781] text-center">
-                        Please select a date first
+                        Vă rugăm să selectați mai întâi o dată
                       </div>
                     )}
                   </div>
@@ -424,14 +602,14 @@ export default function NewAppointmentPage() {
 
                 <div className="flex justify-between">
                   <Button variant="outline" onClick={() => setStep(3)} className="border-[#e0e4ea] text-[#6e7781]">
-                    Back
+                    Înapoi
                   </Button>
                   <Button
                     onClick={() => setStep(5)}
                     disabled={!selectedDate || !selectedTime}
                     className="bg-[#1373e6] hover:bg-[#0058d2]"
                   >
-                    Continue
+                    Continuare
                   </Button>
                 </div>
               </div>
@@ -440,122 +618,54 @@ export default function NewAppointmentPage() {
             {step === 5 && (
               <div className="space-y-6">
                 <div className="p-6 border border-[#e0e4ea] rounded-md bg-[#f6fafe]">
-                  <h3 className="text-xl font-semibold mb-4 text-[#151b26]">Appointment Summary</h3>
+                  <h3 className="text-xl font-semibold mb-4 text-[#151b26]">Rezumat Programare</h3>
                   <div className="space-y-3">
                     <div className="grid grid-cols-3 gap-2">
                       <p className="text-[#6e7781]">Doctor:</p>
                       <p className="col-span-2 font-medium text-[#151b26]">{selectedDoctor}</p>
                     </div>
                     <div className="grid grid-cols-3 gap-2">
-                      <p className="text-[#6e7781]">Specialty:</p>
+                      <p className="text-[#6e7781]">Specialitate:</p>
                       <p className="col-span-2 text-[#151b26]">{selectedSpecialty}</p>
                     </div>
                     <div className="grid grid-cols-3 gap-2">
-                      <p className="text-[#6e7781]">Date:</p>
+                      <p className="text-[#6e7781]">Data:</p>
                       <p className="col-span-2 text-[#151b26]">{selectedDate?.toLocaleDateString()}</p>
                     </div>
                     <div className="grid grid-cols-3 gap-2">
-                      <p className="text-[#6e7781]">Time:</p>
+                      <p className="text-[#6e7781]">Ora:</p>
                       <p className="col-span-2 text-[#151b26]">{selectedTime}</p>
                     </div>
                     <div className="grid grid-cols-3 gap-2">
-                      <p className="text-[#6e7781]">Location:</p>
-                      <p className="col-span-2 text-[#151b26]">City Hospital, Main Building, Floor 3</p>
+                      <p className="text-[#6e7781]">Locație:</p>
+                      <p className="col-span-2 text-[#151b26]">Centrul Medical "MedPlus", Etaj 3</p>
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="notes" className="text-[#151b26]">
-                    Additional Notes (optional)
+                    Note Adiționale (opțional)
                   </Label>
                   <Textarea
                     id="notes"
-                    placeholder="Any additional information for the doctor"
+                    placeholder="Orice informații suplimentare pentru doctor"
                     className="border-[#e0e4ea]"
                   />
                 </div>
 
                 <div className="flex justify-between">
                   <Button variant="outline" onClick={() => setStep(4)} className="border-[#e0e4ea] text-[#6e7781]">
-                    Back
+                    Înapoi
                   </Button>
                   <Button onClick={handleSubmit} className="bg-[#1373e6] hover:bg-[#0058d2]">
-                    Confirm Appointment
+                    Confirmă Programarea
                   </Button>
                 </div>
               </div>
             )}
           </CardContent>
         </Card>
-
-        {/* <Dialog open={showChatDialog} onOpenChange={setShowChatDialog}>
-          <DialogContent className="">
-            <DialogHeader>
-              <DialogTitle className="text-[#151b26]">Chat with Receptionist</DialogTitle>
-              <DialogDescription className="text-[#6e7781]">
-                Our receptionist will help you find the right doctor
-              </DialogDescription>
-            </DialogHeader>
-
-            <div className="max-h-[400px] overflow-y-auto p-4 border border-[#e0e4ea] rounded-md space-y-4">
-              <div className="flex items-start gap-3">
-                <Avatar>
-                  <AvatarImage src="/placeholder.svg?height=40&width=40" alt="Receptionist" />
-                  <AvatarFallback className="bg-[#1373e6] text-white">RC</AvatarFallback>
-                </Avatar>
-                <div className="bg-[#f6fafe] rounded-lg p-3 max-w-[80%]">
-                  <p className="text-sm font-medium text-[#151b26]">Receptionist</p>
-                  <p className="text-[#6e7781]">
-                    Hello! I see you're looking for a {selectedSpecialty} specialist. We have several doctors available
-                    in your area.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <Avatar>
-                  <AvatarImage src="/placeholder.svg?height=40&width=40" alt="Receptionist" />
-                  <AvatarFallback className="bg-[#1373e6] text-white">RC</AvatarFallback>
-                </Avatar>
-                <div className="bg-[#f6fafe] rounded-lg p-3 max-w-[80%]">
-                  <p className="text-sm font-medium text-[#151b26]">Receptionist</p>
-                  <p className="text-[#6e7781]">Here are the nearest doctors from your location:</p>
-                  <ul className="list-disc list-inside mt-2 space-y-1 text-[#6e7781]">
-                    <li>Dr. Sarah Johnson - City Hospital (1.2 km)</li>
-                    <li>Dr. Michael Chen - Medical Center (3.5 km)</li>
-                    <li>Dr. Emily Rodriguez - Health Clinic (5.0 km)</li>
-                  </ul>
-                  <p className="mt-2 text-[#6e7781]">Which doctor would you prefer?</p>
-                </div>
-              </div>
-            </div>
-
-            <DialogFooter className="flex items-center space-x-2">
-              <Button
-                variant="outline"
-                onClick={() => handleDoctorSelect("Dr. Sarah Johnson")}
-                className="border-[#e0e4ea] text-[#151b26]"
-              >
-                Dr. Sarah Johnson
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => handleDoctorSelect("Dr. Michael Chen")}
-                className="border-[#e0e4ea] text-[#151b26]"
-              >
-                Dr. Michael Chen
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => handleDoctorSelect("Dr. Emily Rodriguez")}
-                className="border-[#e0e4ea] text-[#151b26]"
-              >
-                Dr. Emily Rodriguez
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog> */}
       </div>
     </div>
   )

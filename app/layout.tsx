@@ -8,8 +8,9 @@ import Footer from "@/components/footer"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Sistem Cabinet Medical",
+  title: "eMed - Cabinet Medical",
   description: "Accesați serviciile medicale, programările și fișele medicale într-un singur loc",
+    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -29,3 +30,6 @@ export default function RootLayout({
     </html>
   )
 }
+
+
+import './globals.css'

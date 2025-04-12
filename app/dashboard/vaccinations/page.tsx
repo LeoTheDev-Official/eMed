@@ -321,22 +321,3 @@ export default function VaccinationsPage() {
     </div>
   )
 }
-function VaccinationEntry(props : {vaccin : any, data : any, doza : any, locatie : any, status : any})
-{
-  return (<TableRow>
-  <TableCell className="font-medium">{props.vaccin}</TableCell>
-  <TableCell>{props.data}</TableCell>
-  <TableCell>{props.doza}</TableCell>
-  <TableCell>{props.locatie}</TableCell>
-  <TableCell>
-    <Badge variant="outline" className="text-[#6e7781] border-[#e0e4ea]">
-      {props.status}
-    </Badge>
-  </TableCell>
-  <TableCell>
-    <Button variant="ghost" size="sm" className="text-[#1373e6]">
-      Detalii
-    </Button>
-  </TableCell>
-</TableRow>);
-}
