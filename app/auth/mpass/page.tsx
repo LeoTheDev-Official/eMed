@@ -8,29 +8,14 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import Link from "next/link"
 
 export default function MPassPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [code, setCode] = useState("")
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
 
-    // Simulate MPass authentication
-    setTimeout(() => {
-      setIsLoading(false)
-      // Check if user has completed profile
-      const hasCompletedProfile = false // This would be determined by your auth system
-
-      if (hasCompletedProfile) {
-        router.push("/dashboard")
-      } else {
-        router.push("/onboarding")
-      }
-    }, 1500)
-  }
 
   return (
     <div className="container mx-auto px-4 py-16 flex items-center justify-center min-h-[calc(100vh-200px)]">
@@ -39,7 +24,7 @@ export default function MPassPage() {
           <CardTitle className="text-2xl">MPass Authentication</CardTitle>
           <CardDescription>Sign in securely with your MPass mobile application</CardDescription>
         </CardHeader>
-        <form onSubmit={handleLogin}>
+        <form>
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="phone">Phone Number</Label>
@@ -66,9 +51,11 @@ export default function MPassPage() {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
-            <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700" disabled={isLoading || !code}>
-              {isLoading ? "Authenticating..." : "Authenticate"}
-            </Button>
+            <Link href="/dashboard" className="w-full">
+              <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700" >
+                Authenticate
+              </Button>
+            </Link>
             <Button type="button" variant="outline" className="w-full" onClick={() => router.push("/")}>
               Back to Login
             </Button>
