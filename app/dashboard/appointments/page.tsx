@@ -91,7 +91,7 @@ export default function NewAppointmentPage() {
             {[1, 2, 3, 4, 5].map((s) => (
               <div
                 key={s}
-                className={`w-10 h-10 rounded-full flex items-center justify-center z-10 ${
+                className={`w-10 h-10 rounded-full flex items-center justify-center z-0 ${
                   s <= step ? "bg-[#1373e6] text-white" : "bg-[#e0e4ea] text-[#6e7781]"
                 }`}
               >
@@ -135,7 +135,7 @@ export default function NewAppointmentPage() {
                     <TabsTrigger value="specialty">Direct Specialty</TabsTrigger>
                   </TabsList>
 
-                  <TabsContent value="body-map" className="space-y-4">
+                  <TabsContent value="body-map" className="space-y-4 ">
                     <div className="relative w-full max-w-md mx-auto">
                       <svg viewBox="0 0 200 400" className="w-full h-auto">
                         {/* Simple human body outline */}
@@ -490,7 +490,7 @@ export default function NewAppointmentPage() {
         </Card>
 
         <Dialog open={showChatDialog} onOpenChange={setShowChatDialog}>
-          <DialogContent className="sm:max-w-md">
+          <DialogContent className="">
             <DialogHeader>
               <DialogTitle className="text-[#151b26]">Chat with Receptionist</DialogTitle>
               <DialogDescription className="text-[#6e7781]">
