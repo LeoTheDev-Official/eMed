@@ -23,7 +23,7 @@ export default function Home() {
                   Mergi la Panou de Control
                 </Button>
               </Link>
-              <Link href="/dashboard/appointments/new">
+              <Link href="/dashboard/appointments">
                 <Button variant="outline" className="border-[#e0e4ea] text-[#1373e6] px-6 py-2 rounded-md">
                   Programează Consultație
                 </Button>

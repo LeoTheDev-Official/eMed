@@ -59,7 +59,7 @@ export default function DashboardPage() {
                   className="flex items-center p-2 rounded-md text-[#6e7781] hover:bg-[#f6fafe] hover:text-[#1373e6]"
                 >
                   <CalendarDays className="h-5 w-5 mr-3" />
-                  Programare nouă
+                  Programare Nouă
                 </Link>
                 <Link
                   href="/dashboard/medical-records"
