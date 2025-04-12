@@ -62,7 +62,6 @@ export default function VaccinationsPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                <VaccinationEntry vaccin="Test" data="idk" locatie="bruh" status="programat" doza="0/0"/>
                   <TableRow>
                     <TableCell className="font-medium">Vaccin Antigripal</TableCell>
                     <TableCell>10 Octombrie 2024</TableCell>
