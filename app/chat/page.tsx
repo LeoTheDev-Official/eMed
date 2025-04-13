@@ -82,6 +82,23 @@ export default function ChatPage() {
         },
       ],
     },
+    {
+      id: "assistant",
+      name: "AI Consultant",
+      role: "",
+      status: "online",
+      avatar: "/placeholder.svg?height=40&width=40",
+      unread: 0,
+      messages: [
+        { sender: "doctor", text: "Good morning! How can I assist you today?", time: "8:45 AM" },
+        { sender: "user", text: "I need to reschedule my appointment with Dr. Johnson.", time: "8:47 AM" },
+        {
+          sender: "doctor",
+          text: "Of course! Dr. Johnson has availability on Thursday at 2:00 PM or Friday at 10:30 AM. Would either of those work for you?",
+          time: "8:50 AM",
+        },
+      ],
+    },
   ]
 
   const handleSendMessage = () => {
@@ -213,7 +230,7 @@ export default function ChatPage() {
             <CardHeader className="pb-2 border-b">
               <div className="flex items-center space-x-3">
                 <Avatar>
-                  <AvatarImage src={""} alt={activeChats.name} />
+                  <AvatarImage src={activeChats.avatar || "/placeholder.svg"} alt={activeChats.name} />
                   <AvatarFallback>
                     {activeChats.name
                       .split(" ")

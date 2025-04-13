@@ -54,9 +54,9 @@ export default function Header() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem className="font-medium">Dr. Maria Ionescu (2)</DropdownMenuItem>
-              <DropdownMenuItem className="font-medium">Dr. Mihai Popa (1)</DropdownMenuItem>
-              <DropdownMenuItem className="text-[#1373e6]">Vezi toate mesajele</DropdownMenuItem>
+              <DropdownMenuItem className="font-medium"><Link href='/chat'>Dr. Maria Ionescu (2)</Link></DropdownMenuItem>
+              <DropdownMenuItem className="font-medium"><Link href='/chat'>Dr. Mihai Popa (1)</Link></DropdownMenuItem>
+              <DropdownMenuItem className="text-[#1373e6]"><Link href='/chat'>Vezi toate mesajele</Link></DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 

@@ -6,7 +6,6 @@ import { CalendarDays, MessageSquare } from "lucide-react"
 
 export default function Home() {
   const [userType, setUserType] = useState<"patient" | "doctor" | null>(null)
-
   if (!userType) {
     return (
       <div className="min-h-screen bg-white flex flex-col items-center justify-center">
@@ -18,7 +17,7 @@ export default function Home() {
 
           <div className="grid grid-cols-2 gap-4">
             <Button
-              onClick={() => {setUserType("patient"); window.location.href='/dashboard';}}
+              onClick={() => {setUserType("patient"); window.location.href='/login/patient';}}
               className="h-32 flex flex-col items-center justify-center space-y-2 bg-[#1373e6] hover:bg-[#0058d2]"
             >
               <svg
@@ -38,7 +37,7 @@ export default function Home() {
               <span>Pacient</span>
             </Button>
             <Button
-              onClick={() => {setUserType("doctor"); window.location.href='/dashboard';}}
+              onClick={() => {setUserType("doctor"); window.location.href='/login/doctor';}}
               className="h-32 flex flex-col items-center justify-center space-y-2 bg-[#1373e6] hover:bg-[#0058d2]"
             >
               <svg
@@ -66,60 +65,4 @@ export default function Home() {
       </div>
     )
   }
-  if(userType == "patient"){
-  return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="bg-[#f6fafe] border-b border-[#e0e4ea]">
-        <div className="container mx-auto px-4 py-16">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-[#151b26] sm:text-5xl mb-6">eMed</h1>
-
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/dashboard/appointments/new">
-                <Button className="bg-[#1373e6] hover:bg-[#0058d2] text-white px-8 py-6 rounded-md text-lg">
-                  <CalendarDays className="h-6 w-6 mr-2" />
-                  Programare Consultație
-                </Button>
-              </Link>
-              <Link href="/dashboard/chat">
-                <Button className="bg-[#1373e6] hover:bg-[#0058d2] text-white px-8 py-6 rounded-md text-lg">
-                  <MessageSquare className="h-6 w-6 mr-2" />
-                  Mesaje
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
-return (
-  <div className="min-h-screen bg-white">
-    {/* Hero Section */}
-    <section className="bg-[#f6fafe] border-b border-[#e0e4ea]">
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-[#151b26] sm:text-5xl mb-6">eMed</h1>
-
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/dashboard/appointments/new">
-              <Button className="bg-[#1373e6] hover:bg-[#0058d2] text-white px-8 py-6 rounded-md text-lg">
-                <CalendarDays className="h-6 w-6 mr-2" />
-                Programări
-              </Button>
-            </Link>
-            <Link href="/dashboard/chat">
-              <Button className="bg-[#1373e6] hover:bg-[#0058d2] text-white px-8 py-6 rounded-md text-lg">
-                <MessageSquare className="h-6 w-6 mr-2" />
-                Mesaje
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>);
-
 }
